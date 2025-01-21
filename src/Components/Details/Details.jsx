@@ -13,7 +13,7 @@ const Details = () => {
 
     useEffect(() => {
         // Fetch campaign details by ID
-        fetch(`http://localhost:5000/campaigns/${id}`)
+        fetch(`https://crowdfunding-servercd.vercel.app/campaigns/${id}`)
             .then((res) => res.json())
             .then((data) => setCampaign(data))
             .catch((err) => console.error('Error fetching campaign:', err));
