@@ -31,7 +31,7 @@ const AddCampaign = () => {
     // console.log(newCampaign);
 
     // send data to the server and database
-    fetch("https://crowdfunding-servercd.vercel.app/campaignss", {
+    fetch("https://crowdfunding-servercd.vercel.app/campaigns", {
       method: "POST",
       headers: {
         "content-type": "application/json",
