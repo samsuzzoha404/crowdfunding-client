@@ -8,7 +8,7 @@ const RunningCampaigns = () => {
 
     useEffect(() => {
         // Fetch running campaigns (limited to 6 by the backend)
-        fetch("https://crowdfunding-servercd.vercel.app/runningCampaigns")
+        fetch("https://crowdfunding-server-sable.vercel.app/runningCampaigns")
             .then((res) => res.json())
             .then((data) => setCampaigns(data))
             .catch((err) => console.error("Error fetching campaigns:", err));

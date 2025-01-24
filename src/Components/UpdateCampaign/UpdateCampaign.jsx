@@ -34,7 +34,7 @@ const UpdateCampaign = () => {
         e.preventDefault();
 
         // Send updated data to the server
-        fetch(`https://crowdfunding-servercd.vercel.app/campaigns/${_id}`, {
+        fetch(`https://crowdfunding-server-sable.vercel.app/campaigns/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

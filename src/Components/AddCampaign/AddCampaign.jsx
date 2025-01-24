@@ -12,11 +12,36 @@ const AddCampaign = () => {
     const campaignTitle = e.target.campaignTitle.value;
     const campaignType = e.target.campaignType.value;
     const description = e.target.description.value;
-    const minimumDonationAmount = e.target.minimumDonationAmount.value;
+    const minimumDonationAmount = parseFloat(
+      e.target.minimumDonationAmount.value
+    );
     const deadline = e.target.deadline.value;
-    const email = e.target.email.value;
-    const name = e.target.name.value;
+    const email = user?.email || "";
+    const name = user?.displayName || "";
     const photo = e.target.photo.value;
+
+    // Validate deadline (must be in the future)
+    const today = new Date().toISOString().split("T")[0];
+    if (new Date(deadline) <= new Date(today)) {
+      Swal.fire({
+        title: "Invalid Deadline",
+        text: "Deadline must be a future date.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+      return;
+    }
+
+    // Validate minimum donation amount
+    if (minimumDonationAmount <= 0) {
+      Swal.fire({
+        title: "Invalid Input",
+        text: "Minimum donation amount must be greater than zero.",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
+      return;
+    }
 
     const newCampaign = {
       campaignTitle,
@@ -28,20 +53,23 @@ const AddCampaign = () => {
       name,
       photo,
     };
-    // console.log(newCampaign);
 
-    // send data to the server and database
-    fetch("https://crowdfunding-servercd.vercel.app/campaigns", {
+    // Send data to the server
+    fetch("https://crowdfunding-server-sable.vercel.app/campaigns", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify(newCampaign),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to add campaign.");
+        }
+        return res.json();
+      })
       .then((data) => {
         if (data.insertedId) {
-          // console.log('successfully added');
           Swal.fire({
             title: "Success!",
             text: "Campaign added successfully",
@@ -50,6 +78,14 @@ const AddCampaign = () => {
           });
           e.target.reset();
         }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error!",
+          text: error.message || "Something went wrong. Please try again.",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
       });
   };
 
@@ -63,7 +99,7 @@ const AddCampaign = () => {
       </div>
       <div className="card w-full shrink-0 shadow-2xl">
         <form onSubmit={handleAddCampaign} className="card-body">
-          {/* form first row */}
+          {/* Form first row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
@@ -100,7 +136,7 @@ const AddCampaign = () => {
               </select>
             </div>
           </div>
-          {/* form second row */}
+          {/* Form second row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
@@ -127,7 +163,7 @@ const AddCampaign = () => {
               />
             </div>
           </div>
-          {/* form third row */}
+          {/* Form third row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
@@ -150,13 +186,13 @@ const AddCampaign = () => {
                 name="email"
                 placeholder="User Email"
                 className="input input-bordered bg-white text-black dark:bg-gray-800 dark:text-gray-400"
-                value={user.email}
+                value={user?.email || ""}
                 readOnly
                 required
               />
             </div>
           </div>
-
+          {/* Form fourth row */}
           <div className="flex flex-col lg:flex-row gap-5">
             <div className="form-control flex-1">
               <label className="label">
@@ -167,7 +203,7 @@ const AddCampaign = () => {
                 name="name"
                 placeholder="User Name"
                 className="input input-bordered bg-white text-black dark:bg-gray-800 dark:text-gray-400"
-                value={user.displayName}
+                value={user?.displayName || ""}
                 readOnly
                 required
               />

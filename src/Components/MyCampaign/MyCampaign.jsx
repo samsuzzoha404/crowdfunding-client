@@ -10,7 +10,7 @@ const MyCampaign = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`https://crowdfunding-servercd.vercel.app/myCampaign?email=${user.email}`)
+        fetch(`https://crowdfunding-server-sable.vercel.app/myCampaign?email=${user.email}`)
             .then((res) => res.json())
             .then((data) => {
                 setMyCampaigns(data);
@@ -36,7 +36,7 @@ const MyCampaign = () => {
             cancelButtonText: 'Cancel',
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://crowdfunding-servercd.vercel.app/campaigns/${id}`, {
+                fetch(`https://crowdfunding-server-sable.vercel.app/campaigns/${id}`, {
                     method: 'DELETE',
                 })
                     .then((res) => res.json())

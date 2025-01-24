@@ -11,7 +11,7 @@ const MyDonations = () => {
     useEffect(() => {
         if (user) {
             // Fetch donations by user email
-            fetch(`https://crowdfunding-servercd.vercel.app/myDonations?email=${user.email}`)
+            fetch(`https://crowdfunding-server-sable.vercel.app/myDonations?email=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                     setDonations(data);

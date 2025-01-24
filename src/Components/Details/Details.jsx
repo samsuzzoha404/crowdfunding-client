@@ -13,7 +13,7 @@ const Details = () => {
 
     useEffect(() => {
         // Fetch campaign details by ID
-        fetch(`https://crowdfunding-servercd.vercel.app/campaigns/${id}`)
+        fetch(`https://crowdfunding-server-sable.vercel.app/campaigns/${id}`)
             .then((res) => res.json())
             .then((data) => setCampaign(data))
             .catch((err) => console.error('Error fetching campaign:', err));
@@ -60,7 +60,7 @@ const Details = () => {
         };
 
         // Save donation data to the database
-        fetch('https://crowdfunding-servercd.vercel.app/donations', {
+        fetch('https://crowdfunding-server-sable.vercel.app/donations', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
