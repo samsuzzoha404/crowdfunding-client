@@ -21,7 +21,7 @@ const Banner = () => {
                     className={`carousel-item relative w-full ${activeSlide === 1 ? "block" : "hidden"}`}
                 >
                     <img
-                        src="https://islamichelp.org.uk/storage/Bangladesh%20Flood%202023/bangladeshflooding.jpeg"
+                        src="https://www.warchild.net/media/original_images/Gazajuli24-websiteheader.jpg.1262x662_q85_upscale.jpg"
                         className="w-full h-full object-cover rounded-2xl"
                         alt="Slide 1"
                     />
